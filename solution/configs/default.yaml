@@ -1,0 +1,34 @@
+# Конфигурации стратегий, использованные в notebooks/report.ipynb
+
+engine:
+  requote_interval_us: 100_000      # 100 ms - период переоценки котировок
+  mtm_interval_us:     1_000_000    # 1 s - период mark-to-market
+
+baseline:
+  half_spread_fp: 2                  # 2 fp tick
+  size:           1000.0
+
+# Дефолтная AS перед grid sweep'ом
+as2008_default:
+  gamma:         0.1
+  k:             1.5
+  sigma:         18.18                # fp / sqrt(s), realized из sample
+  T:             0.1                  # rolling const
+  order_size:    1000.0
+  max_inventory: 20.0                 # лотов
+
+# Лучшая по Sharpe из grid sweep'а на 1h sample
+as2008_best:
+  gamma:         0.3
+  k:             1.5
+  sigma:         18.18
+  T:             1.0
+  order_size:    1000.0
+  max_inventory: 20.0
+
+# Параметры grid sweep'а (24 комбинации)
+sweep:
+  gamma: [0.05, 0.1, 0.3, 1.0]
+  T:     [0.05, 0.1, 1.0]
+  k:     [0.5, 1.5]
+  min_fills_filter: 50              # отбрасываем конфиги с меньшим числом fills
